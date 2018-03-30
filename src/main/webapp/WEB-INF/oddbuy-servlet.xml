@@ -50,15 +50,15 @@
 					<property name="prefix" value="/WEB-INF/jsp/" />
 					<property name="suffix" value=".jsp" />
 				</bean>
-				<!-- <bean id="viewResolver2"
+				<bean id="viewResolver2"
 					class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 					<property name="order" value="20"/> 
 					<property name="cache" value="true" />
 					<property name="prefix" value="" />
 					<property name="suffix" value=".ftl" />
-					定义contentType避免中文乱码
+					<!-- 定义contentType避免中文乱码 -->
 					<property name="contentType" value="text/html; charset=utf-8" />
-				</bean> -->
+				</bean>
 			</list>
 		</property>
 		<property name="defaultViews">
