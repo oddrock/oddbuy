@@ -11,6 +11,8 @@ import com.oddrock.netease.oddbuy.entity.Person;
 public interface PersonDao {
 	@Select("select * from person a where a.id=#{id")
 	public Person get(@Param("id")  String id);
+	@Select("select * from person a WHERE a.userName=#{userName}")
+	public List<Person> getUser(@Param("userName")  String userName);
 	
 	@Select("select * from person a WHERE a.userName=#{userName} and a.password = #{password}")
 	public List<Person> checkUser(@Param("userName")  String userName, @Param("password")  String password);

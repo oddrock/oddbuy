@@ -14,15 +14,15 @@ import com.oddrock.netease.oddbuy.entity.Person;
 public class PersonService {
 	@Autowired
     private PersonDao dao;
+	
+	public List<Person> getUser(String userName) {
+		return dao.getUser(userName);
+	}
 
 	public List<Person> findAllList(){
 		return dao.findAllList();
 	}
-	public boolean checkUser(String userName, String password) {
-		if(dao.checkUser(userName, password).size()>0) {
-            return true;
-        }else {
-            return false;
-        }
+	public List<Person> checkUser(String userName, String password) {
+		return dao.checkUser(userName, password);
 	}
 }

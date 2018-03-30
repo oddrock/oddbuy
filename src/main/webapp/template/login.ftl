@@ -4,7 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form class="m-form m-form-ht n-login" id="loginForm" onsubmit="return false;" autocomplete="off">
+<form class="m-form m-form-ht n-login" id="loginForm" method="post" action="login" autocomplete="off">
     <div class="fmitem">
         <label class="fmlab">用户名：</label>
         <div class="fmipt">
@@ -19,7 +19,7 @@
     </div>
     <div class="fmitem fmitem-nolab fmitem-btn">
         <div class="fmipt">
-            <button type="submit" class="u-btn u-btn-primary u-btn-lg u-btn-block">登 录</button>
+            <input type="submit" value="提交" />
         </div>
     </div>
 </form>

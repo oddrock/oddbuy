@@ -52,7 +52,7 @@
 				</bean>
 				<bean id="viewResolver2"
 					class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-					<property name="order" value="20"/> 
+					<property name="order" value="5"/> 
 					<property name="cache" value="true" />
 					<property name="prefix" value="" />
 					<property name="suffix" value=".ftl" />

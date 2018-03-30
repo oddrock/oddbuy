@@ -6,6 +6,7 @@
 <form action="oddbuy/login" method="post" > 
 <p>用户：<input type="text" name="userName"/></p>
 <p>密码：<input type="password" name="password"/></p>
+<input type="hidden" name="type" value="0"/>
 <input type="submit" value="提交" />
 </form>
 </body>
