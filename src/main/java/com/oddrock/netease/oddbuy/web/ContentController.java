@@ -1,5 +1,7 @@
 package com.oddrock.netease.oddbuy.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +31,7 @@ public class ContentController {
     }
 	
 	@RequestMapping("/show")
-    public ModelAndView  show(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		Content content = contentService.get(id);
@@ -38,6 +40,19 @@ public class ContentController {
         Person user = (Person)session.getAttribute("user");
         mv.addObject("user",user);
 		mv.setViewName("show");
+		return mv;
+    }
+	
+	@RequestMapping("/index")
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+        Person user = (Person)session.getAttribute("user");
+		mv.addObject("user", user);
+        List<Content> productList = contentService.findAllList();
+        mv.addObject("productList", productList);
+        mv.setViewName("index");
+		mv.setViewName("index");
 		return mv;
     }
 	

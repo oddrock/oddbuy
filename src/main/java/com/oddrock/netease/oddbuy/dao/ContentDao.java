@@ -19,9 +19,9 @@ public interface ContentDao {
 	@Options(useGeneratedKeys = true, keyProperty = "content.id")
 	public void insert(@Param("content") Content content);
 	
-	@Select("select a.id,a.price,a.title,a.icon as 'image' ,a.abstract as 'summary',a.text as 'detail', (SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'buyNum',(SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'saleNum',(SELECT price FROM trx b WHERE b.contentId=a.id LIMIT 1) AS 'buyPrice' from content a")
+	@Select("select a.id,a.price,a.title,a.icon as 'image' ,a.abstract as 'summary',a.text, (SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'buyNum',(SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'saleNum',(SELECT price FROM trx b WHERE b.contentId=a.id LIMIT 1) AS 'buyPrice' from content a")
 	public List<Content> findAllList();
 	
-	@Select("select a.id,a.price,a.title,a.icon as 'image' ,a.abstract as 'summary',a.text as 'detail', (SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'buyNum',(SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'saleNum',(SELECT price FROM trx b WHERE b.contentId=a.id LIMIT 1) AS 'buyPrice' from content a where a.id=#{id}")
+	@Select("select a.id,a.price,a.title,a.icon as 'image' ,a.abstract as 'summary',a.text, (SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'buyNum',(SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'saleNum',(SELECT price FROM trx b WHERE b.contentId=a.id LIMIT 1) AS 'buyPrice' from content a where a.id=#{id}")
 	public Content get(int id);
 }
