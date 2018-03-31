@@ -28,4 +28,8 @@ public class ContentService {
 	public Content get(int id) {
 		return dao.get(id);
 	}
+	
+	public void update(Content content) {
+		dao.update(content);
+	}
 }

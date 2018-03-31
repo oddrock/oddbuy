@@ -15,6 +15,7 @@ public class Content {
 	private boolean isBuy;
 	private boolean isSell;
 	private int buyPrice;
+	private int saleNum;
 	
 	public int getBuyPrice() {
 		return buyPrice;
@@ -37,8 +38,15 @@ public class Content {
 	public int getBuyNum() {
 		return buyNum;
 	}
+	public int getSaleNum() {
+		return saleNum;
+	}
+	public void setSaleNum(int saleNum) {
+		this.saleNum = saleNum;
+	}
 	public void setBuyNum(int buyNum) {
 		this.buyNum = buyNum;
+		this.saleNum = buyNum;
 		if(this.buyNum>0) {
 			this.isBuy=true;
 			this.isSell=true;

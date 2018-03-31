@@ -7,13 +7,13 @@
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <h2>内容编辑</h2>
     </div>
-    <#if !product>
+    <#if !product??>
     <div class="n-result">
         <h3>内容不存在！</h3>
     </div>
     <#else>
     <div class="n-public">
-        <form class="m-form m-form-ht" id="form" method="post" action="/editSubmit?id=${product.id}" onsubmit="return false;" autocomplete="off">
+        <form class="m-form m-form-ht" id="form" method="post" action="editSubmit?id=${product.id}" onsubmit="return checkForm();" autocomplete="off">
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
@@ -61,13 +61,21 @@
                     <button type="submit" class="u-btn u-btn-primary u-btn-lg">保 存</button>
                 </div>
             </div>
+			<input type="hidden" name="buyPrice" value="${product.buyPrice}"/>
+			<input type="hidden" name="buyNum" value="${product.buyNum}"/>
         </form>
         <span class="imgpre"><img src="${product.image}" alt="" id="imgpre"></span>
     </div>
     </#if>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="/js/global.js"></script>
-<script type="text/javascript" src="/js/public.js"></script>
+<script>
+function checkForm(){
+
+	return true;
+}
+</script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/public.js"></script>
 </body>
 </html>
