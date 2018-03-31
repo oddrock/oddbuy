@@ -6,7 +6,8 @@ public class Content {
 	private Long id;
 	private Long price;
 	private String title;
-	private String image;
+	private byte[] icon;
+ 	private String image;
 	private String summary;
 	private byte[] text;
 	private String detail;
@@ -50,11 +51,23 @@ public class Content {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public byte[] getIcon() {
+		return icon;
+	}
+	public void setIcon(byte[] icon) {
+		this.icon = icon;
+	}
 	public String getImage() {
-		return image;
+		if(null!=icon){  
+			this.image=new String(icon);  
+        }  
+        return this.image; 
 	}
 	public void setImage(String image) {
-		this.image = image;
+		if(null!=image) {
+			this.image = image;
+			this.icon=image.getBytes();
+		}
 	}
 	public String getSummary() {
 		return summary;

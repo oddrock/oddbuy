@@ -30,7 +30,7 @@
                     </#if>
                 </#if>
                 <#if user?? && user.userType==1>
-                <a href="/edit?id=${product.id}" class="u-btn u-btn-primary">编 辑</a>
+                <a href="edit?id=${product.id}" class="u-btn u-btn-primary">编 辑</a>
                 </#if>
             </div>
         </div>

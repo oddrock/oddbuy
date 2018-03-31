@@ -19,7 +19,7 @@
     </div>
     <div class="fmitem fmitem-nolab fmitem-btn">
         <div class="fmipt">
-            <input type="submit" value='提交' />
+            <input type="submit" id="submit" value='提交' />
         </div>
     </div>
 	<div>买家用户：buyer，密码：reyub，卖家用户：seller，密码：relles</div>
@@ -30,6 +30,7 @@
 function checkForm(){
 	var pwd= document.getElementById('password');
 	pwd.value=md5(pwd.value);
+	document.getElementById('submit').disabled=true;
 	return true;
 }
 </script>
