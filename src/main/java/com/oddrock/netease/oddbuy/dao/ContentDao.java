@@ -12,10 +12,13 @@ import com.oddrock.netease.oddbuy.entity.Content;
 
 @Repository
 public interface ContentDao {
-	@Select("select id,price,title,icon,abstract as 'digest',text from content a")
-	public List<Content> findAllList();
+	/*@Select("select id,price,title,icon,abstract as 'digest',text from content a")
+	public List<Content> findAllList();*/
 	
 	@Insert("INSERT INTO content(price, title, icon, abstract, text) VALUES(#{content.price}, #{content.title}, #{content.icon}, #{content.digest}, #{content.text})")
 	@Options(useGeneratedKeys = true, keyProperty = "content.id")
 	public void insert(@Param("content") Content content);
+	
+	@Select("select a.id,a.price,a.title,a.icon as 'image' ,a.abstract as 'summary',a.text as 'detail', (select count(*) from trx b where b.contentId=a.id) as 'buyCount' from content a")
+	public List<Content> findAllList();
 }

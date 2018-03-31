@@ -4,9 +4,31 @@ public class Content {
 	private Long id;
 	private Long price;
 	private String title;
-	private String icon;
-	private String digest;
-	private String text;
+	private String image;
+	private String summary;
+	private String detail;
+	private int buyCount;
+	private boolean isBuy;
+	private boolean isSell;
+	
+	public boolean isBuy() {
+		return isBuy;
+	}
+	public void setBuy(boolean isBuy) {
+		this.isBuy = isBuy;
+	}
+	public boolean isSell() {
+		return isSell;
+	}
+	public void setSell(boolean isSell) {
+		this.isSell = isSell;
+	}
+	public int getBuyCount() {
+		return buyCount;
+	}
+	public void setBuyCount(int buyCount) {
+		this.buyCount = buyCount;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -25,23 +47,30 @@ public class Content {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getIcon() {
-		return icon;
+	public String getImage() {
+		return image;
 	}
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setImage(String image) {
+		this.image = image;
 	}
-	public String getDigest() {
-		return digest;
+	public String getSummary() {
+		return summary;
 	}
-	public void setDigest(String digest) {
-		this.digest = digest;
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
-	public String getText() {
-		return text;
+	public String getDetail() {
+		return detail;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
+	@Override
+	public String toString() {
+		return "Content [id=" + id + ", price=" + price + ", title=" + title + ", image=" + image + ", summary="
+				+ summary + ", detail=" + detail + ", buyCount=" + buyCount + ", isBuy=" + isBuy + ", isSell=" + isSell
+				+ "]";
+	}
+	
 	
 }

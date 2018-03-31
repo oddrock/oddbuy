@@ -35,6 +35,14 @@
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/template" />
+		<property name="freemarkerSettings">
+			<props>
+				<!-- 设置页面中文乱码问题 -->
+				<prop key="default_encoding">UTF-8</prop><!--模板的编码格式 -->
+				<prop key="locale">UTF-8</prop><!-- 本地化设置 -->
+				<prop key="url_escaping_charset">UTF-8</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!-- 定义View解析配置 -->
@@ -46,13 +54,13 @@
 			<list>
 				<bean id="viewResolver"
 					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-					<property name="order" value="10"/> 
+					<property name="order" value="10" />
 					<property name="prefix" value="/WEB-INF/jsp/" />
 					<property name="suffix" value=".jsp" />
 				</bean>
 				<bean id="viewResolver2"
 					class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-					<property name="order" value="5"/> 
+					<property name="order" value="5" />
 					<property name="cache" value="true" />
 					<property name="prefix" value="" />
 					<property name="suffix" value=".ftl" />

@@ -29,12 +29,13 @@ public class ContentController {
     public ModelAndView  publicSubmit(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		Content content = new Content();
-		content.setIcon(request.getParameter("image"));
-		content.setDigest(request.getParameter("summary"));
+		content.setImage(request.getParameter("image"));
+		content.setSummary(request.getParameter("summary"));
 		content.setPrice(Long.valueOf(request.getParameter("price")));
-		content.setText(request.getParameter("detail"));
+		content.setDetail(request.getParameter("detail"));
 		content.setTitle(request.getParameter("title"));
 		contentService.insert(content);
+		logger.warn(content);
 		mv.addObject("product", content);
 		mv.setViewName("publicSubmit");
 		return mv;

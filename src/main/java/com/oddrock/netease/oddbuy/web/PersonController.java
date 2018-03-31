@@ -38,6 +38,7 @@ public class PersonController {
         	list = personService.checkUser(userName, password);
             if(list.size()>0) {
                 session.setAttribute("userName", userName);
+                
                 logger.warn(userName+"登录成功。");
             }else {
                 // 否则跳转到错误页面
@@ -49,14 +50,22 @@ public class PersonController {
         	userName = (String)session.getAttribute("userName");
             logger.warn(userName+"之前已登录，不必重复登录。");
             
-        }
-        
+        } 
         if(list==null || list.size()==0) {
-        	list = personService.getUser(userName);
+        	list = personService.getUser(userName);	
         }
-        mv.addObject("user", list.get(0));
-        mv.addObject("userName", userName);
-        mv.setViewName("test");
+        Person user = list.get(0);
+        if (session.getAttribute("userId") == null) {
+        	session.setAttribute("userId", user.getId());
+        }
+        mv.addObject("user", user);
+        
+        List<Content> productList = contentService.findAllList();
+        for(Content content : productList) {
+        	logger.warn(content);
+        }
+        mv.addObject("productList", productList);
+        mv.setViewName("index");
 		return mv;
     }
 	

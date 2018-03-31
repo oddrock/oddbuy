@@ -22,6 +22,7 @@
             <input type="submit" value="提交" />
         </div>
     </div>
+<input type="hidden" name="type" value="0"/>
 </form>
 <#include "/include/footer.ftl">
 <script type="text/javascript" src="/js/md5.js"></script>
