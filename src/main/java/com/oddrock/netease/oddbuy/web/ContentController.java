@@ -2,6 +2,8 @@ package com.oddrock.netease.oddbuy.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oddrock.netease.oddbuy.entity.Content;
+import com.oddrock.netease.oddbuy.entity.Person;
 import com.oddrock.netease.oddbuy.service.ContentService;
 
 
@@ -22,6 +25,19 @@ public class ContentController {
     public ModelAndView  publish(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("public");
+		return mv;
+    }
+	
+	@RequestMapping("/show")
+    public ModelAndView  show(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Content content = contentService.get(id);
+		mv.addObject("product",content);
+		HttpSession session = request.getSession();
+        Person user = (Person)session.getAttribute("user");
+        mv.addObject("user",user);
+		mv.setViewName("show");
 		return mv;
     }
 	

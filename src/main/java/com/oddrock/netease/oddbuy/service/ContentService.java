@@ -24,11 +24,15 @@ public class ContentService {
 	public List<Content> findAllList(){
 		List<Content> result= dao.findAllList();
 		for(Content content: result) {
-			if(content.getBuyCount()>0) {
+			if(content.getBuyNum()>0) {
 				content.setBuy(true);
 				content.setSell(true);
 			}
 		}
 		return result;
+	}
+	
+	public Content get(int id) {
+		return dao.get(id);
 	}
 }

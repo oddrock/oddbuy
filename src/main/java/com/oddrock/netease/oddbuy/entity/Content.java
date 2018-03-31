@@ -7,7 +7,7 @@ public class Content {
 	private String image;
 	private String summary;
 	private String detail;
-	private int buyCount;
+	private int buyNum;
 	private boolean isBuy;
 	private boolean isSell;
 	
@@ -23,11 +23,11 @@ public class Content {
 	public void setSell(boolean isSell) {
 		this.isSell = isSell;
 	}
-	public int getBuyCount() {
-		return buyCount;
+	public int getBuyNum() {
+		return buyNum;
 	}
-	public void setBuyCount(int buyCount) {
-		this.buyCount = buyCount;
+	public void setBuyNum(int buyNum) {
+		this.buyNum = buyNum;
 	}
 	public Long getId() {
 		return id;
@@ -68,7 +68,7 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", price=" + price + ", title=" + title + ", image=" + image + ", summary="
-				+ summary + ", detail=" + detail + ", buyCount=" + buyCount + ", isBuy=" + isBuy + ", isSell=" + isSell
+				+ summary + ", detail=" + detail + ", buyCount=" + buyNum + ", isBuy=" + isBuy + ", isSell=" + isSell
 				+ "]";
 	}
 	
