@@ -25,7 +25,7 @@ public class PersonController {
 	private ContentService contentService;
 	
 	@RequestMapping("/welcome")
-    public ModelAndView  welcome() {
+    public ModelAndView  welcome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
 		return mv;
@@ -38,8 +38,6 @@ public class PersonController {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         logger.warn(userName+"正在登录...");
-        logger.warn("MD5前密码是："+password);
-        
         List<Person> list = null;
         // 如果Session中已经有用户名，就不必再登录，直接跳转到user界面
         if (session.getAttribute("userName") == null) {  
@@ -47,7 +45,6 @@ public class PersonController {
         	list = personService.checkUser(userName, password);
             if(list.size()>0) {
                 session.setAttribute("userName", userName);
-                
                 logger.warn(userName+"登录成功。");
             }else {
                 // 否则跳转到错误页面
@@ -68,11 +65,7 @@ public class PersonController {
         	session.setAttribute("userId", user.getId());
         }
         mv.addObject("user", user);
-        
         List<Content> productList = contentService.findAllList();
-        for(Content content : productList) {
-        	logger.warn(content);
-        }
         mv.addObject("productList", productList);
         mv.setViewName("index");
 		return mv;

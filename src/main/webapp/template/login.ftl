@@ -26,16 +26,15 @@
 <input type="hidden" name="type" value="0"/>
 </form>
 <#include "/include/footer.ftl">
+<script>
 function checkForm(){
 	var pwd= document.getElementById('password');
-	alert(pwd.value);
-	alert(md5(pwd.value));
-	alert(pwd.value);
-	return false;
+	pwd.value=md5(pwd.value);
+	return true;
 }
 </script>
-<script type="text/javascript" src="/js/md5.js"></script>
-<script type="text/javascript" src="/js/global.js"></script>
-<script type="text/javascript" src="/js/pageLogin.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/pageLogin.js"></script>
 </body>
 </html>

@@ -1,3 +1,1 @@
-function test(){
-	alert("test.js");
-}
+alert("test.js")
