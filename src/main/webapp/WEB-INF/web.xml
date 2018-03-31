@@ -5,7 +5,7 @@
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+		<welcome-file>/WEB-INF/index.jsp</welcome-file>
 	</welcome-file-list>
 
 	<listener>
@@ -25,15 +25,6 @@
 		<servlet-name>oddbuy</servlet-name>
 		<url-pattern>/oddbuy/*</url-pattern>
 	</servlet-mapping>
-
-	<filter>
-		<filter-name>CheckFilter</filter-name>
-		<filter-class>com.oddrock.netease.oddbuy.filter.CheckFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CheckFilter</filter-name>
-		<url-pattern>/jsp/biz/*</url-pattern>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>

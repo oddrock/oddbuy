@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oddrock.netease.oddbuy.entity.Content;
@@ -25,12 +24,22 @@ public class PersonController {
 	@Autowired
 	private ContentService contentService;
 	
+	@RequestMapping("/welcome")
+    public ModelAndView  welcome() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
+	}
+	
 	@RequestMapping("/login")
-    public ModelAndView  login(@RequestParam("userName") String userName, 
-            @RequestParam("password") String password, HttpServletRequest request) {
+    public ModelAndView  login(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
         logger.warn(userName+"正在登录...");
+        logger.warn("MD5前密码是："+password);
+        
         List<Person> list = null;
         // 如果Session中已经有用户名，就不必再登录，直接跳转到user界面
         if (session.getAttribute("userName") == null) {  
@@ -43,7 +52,7 @@ public class PersonController {
             }else {
                 // 否则跳转到错误页面
             	logger.warn(userName+"登录失败！");
-            	mv.setViewName("error");
+            	mv.setViewName("login");
                 return mv;
             }
         }else {
