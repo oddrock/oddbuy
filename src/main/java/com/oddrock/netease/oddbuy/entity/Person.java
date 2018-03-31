@@ -3,7 +3,6 @@ package com.oddrock.netease.oddbuy.entity;
 public class Person {
 	private Long id;
 	private String userName;
-	private String password;
 	private String nickName;
 	private Integer userType;
 	public Long getId() {
@@ -17,12 +16,6 @@ public class Person {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getNickName() {
 		return nickName;

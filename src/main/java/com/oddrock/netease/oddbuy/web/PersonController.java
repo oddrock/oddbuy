@@ -34,17 +34,18 @@ public class PersonController {
 	@RequestMapping("/login")
     public ModelAndView  login(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        String userName = (String)session.getAttribute("userName");
+        Person user = (Person)session.getAttribute("user");
         ModelAndView mv = new ModelAndView();
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        logger.warn(userName+"正在登录...");
-        List<Person> list = null;
-        // 如果Session中已经有用户名，就不必再登录，直接跳转到user界面
-        if (session.getAttribute("userName") == null) {  
-            // 如果Session中没有用户名，则进行检查，通过则将用户名写入session，再跳转到user界面
-        	list = personService.checkUser(userName, password);
+        
+        if(userName==null) {	// 如果Session中没有用户名，则进行检查，通过则将用户名写入session，再跳转到user界面
+        	userName = request.getParameter("userName");
+        	String password = request.getParameter("password");
+        	List<Person> list = personService.checkUser(userName, password);
             if(list.size()>0) {
                 session.setAttribute("userName", userName);
+                user = list.get(0);
+                session.setAttribute("user", user);
                 logger.warn(userName+"登录成功。");
             }else {
                 // 否则跳转到错误页面
@@ -52,18 +53,10 @@ public class PersonController {
             	mv.setViewName("login");
                 return mv;
             }
-        }else {
-        	userName = (String)session.getAttribute("userName");
-            logger.warn(userName+"之前已登录，不必重复登录。");
-            
-        } 
-        if(list==null || list.size()==0) {
-        	list = personService.getUser(userName);	
+        }else {					// 如果Session中已经有用户名，就不必再登录，直接跳转到user界面
+        	logger.warn(userName+"正在登录，但之前已登录，不必重复登录。");
         }
-        Person user = list.get(0);
-        if (session.getAttribute("userId") == null) {
-        	session.setAttribute("userId", user.getId());
-        }
+        
         mv.addObject("user", user);
         List<Content> productList = contentService.findAllList();
         mv.addObject("productList", productList);
