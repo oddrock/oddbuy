@@ -14,7 +14,14 @@ public class Content {
 	private int buyNum;
 	private boolean isBuy;
 	private boolean isSell;
+	private int buyPrice;
 	
+	public int getBuyPrice() {
+		return buyPrice;
+	}
+	public void setBuyPrice(int buyPrice) {
+		this.buyPrice = buyPrice;
+	}
 	public boolean isBuy() {
 		return isBuy;
 	}
@@ -32,6 +39,13 @@ public class Content {
 	}
 	public void setBuyNum(int buyNum) {
 		this.buyNum = buyNum;
+		if(this.buyNum>0) {
+			this.isBuy=true;
+			this.isSell=true;
+		}else {
+			this.isBuy=false;
+			this.isSell=false;
+		}
 	}
 	public Long getId() {
 		return id;
@@ -56,6 +70,9 @@ public class Content {
 	}
 	public void setIcon(byte[] icon) {
 		this.icon = icon;
+		if(null!=icon){  
+			this.image=new String(icon);  
+        }
 	}
 	public String getImage() {
 		if(null!=icon){  
@@ -80,6 +97,9 @@ public class Content {
 	}
 	public void setText(byte[] text) {
 		this.text = text;
+		if(null!=text){  
+			this.detail=new String(text);  
+        }  
 	}
 	public void setDetail(String detail) {
 		if(null!=detail) {
@@ -95,8 +115,9 @@ public class Content {
 	}
 	@Override
 	public String toString() {
-		return "Content [id=" + id + ", price=" + price + ", title=" + title + ", image=" + image + ", summary="
-				+ summary + ", detail=" + Arrays.toString(text) + ", buyNum=" + buyNum + ", isBuy=" + isBuy
-				+ ", isSell=" + isSell + "]";
+		return "Content [id=" + id + ", price=" + price + ", title=" + title + ", icon=" + Arrays.toString(icon)
+				+ ", image=" + image + ", summary=" + summary + ", text=" + Arrays.toString(text) + ", detail=" + detail
+				+ ", buyNum=" + buyNum + ", isBuy=" + isBuy + ", isSell=" + isSell + ", buyPrice=" + buyPrice + "]";
 	}
+	
 }

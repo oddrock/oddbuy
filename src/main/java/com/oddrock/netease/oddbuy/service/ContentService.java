@@ -22,14 +22,7 @@ public class ContentService {
 	}
 	
 	public List<Content> findAllList(){
-		List<Content> result= dao.findAllList();
-		for(Content content: result) {
-			if(content.getBuyNum()>0) {
-				content.setBuy(true);
-				content.setSell(true);
-			}
-		}
-		return result;
+		return dao.findAllList();
 	}
 	
 	public Content get(int id) {

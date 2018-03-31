@@ -29,4 +29,10 @@ public class Person {
 	public void setUserType(Integer userType) {
 		this.userType = userType;
 	}
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", userName=" + userName + ", nickName=" + nickName + ", userType=" + userType
+				+ "]";
+	}
+	
 }

@@ -40,6 +40,8 @@ public class ContentController {
         Person user = (Person)session.getAttribute("user");
         mv.addObject("user",user);
 		mv.setViewName("show");
+		logger.warn(content);
+		logger.warn(user);
 		return mv;
     }
 	
