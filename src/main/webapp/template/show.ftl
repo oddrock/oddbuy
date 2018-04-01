@@ -18,7 +18,7 @@
             <div class="price">
                 <span class="v-unit">¥</span><span class="v-value">${product.price}</span>
             </div>
-            <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum">${product.buyNum}</span><span id="addNum" class="moreNum"><a>+</a></span></div>
+            <div class="num">购买数量：<span id="plusNum" onclick="subCartNum()" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum"><input type="text" id="cartNum" name="cartNum" style="width:30px;border:0px;" value="${product.buyNum}" readonly=true/></span><span onclick="addCartNum()" id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">
                 <#if user?? && user.userType==0>
                     <#if product.buy>
@@ -44,6 +44,19 @@
     </#if>
 </div>
 <#include "/include/footer.ftl">
+<script>
+	function addCartNum(){
+		var elem = document.getElementById("cartNum");
+		elem.value=parseInt(elem.value)+1;
+	}
+	function subCartNum(){
+		var elem = document.getElementById("cartNum");
+		var num = parseInt(elem.value);
+		if(num>0){
+			elem.value=num-1;
+		}
+	}
+</script>
 <script type="text/javascript" src="/js/global.js"></script>
 <script type="text/javascript" src="/js/pageShow.js"></script>
 </body>

@@ -68,6 +68,14 @@ public class ContentController {
 		mv.setViewName("index");
 		return mv;
 	}
+	
+	@RequestMapping("/addCart")
+	public ModelAndView addCart(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("");
+		return mv;
+	}
 
 	@RequestMapping("/index")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
