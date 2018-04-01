@@ -29,7 +29,7 @@ public class ContentService {
 		return dao.findAllList();
 	}
 	
-	public Content get(int id) {
+	public Content get(Long id) {
 		return dao.get(id);
 	}
 	

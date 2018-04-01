@@ -25,7 +25,7 @@ public interface ContentDao {
 	public List<Content> findAllList();
 	
 	@Select("select a.id,a.price,a.title,a.icon,a.abstract as 'summary',a.text, (SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'buyNum',(SELECT COUNT(*) FROM trx b WHERE b.contentId=a.id) AS 'saleNum',(SELECT price FROM trx b WHERE b.contentId=a.id LIMIT 1) AS 'buyPrice' from content a where a.id=#{id}")
-	public Content get(int id);
+	public Content get(Long id);
 	
     @Update("update content set price=#{content.price},title=#{content.title},icon=#{content.icon},abstract=#{content.summary},text=#{content.text} where id=#{content.id}")
     public void update(@Param("content") Content content);

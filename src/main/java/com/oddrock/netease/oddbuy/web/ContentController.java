@@ -1,6 +1,8 @@
 package com.oddrock.netease.oddbuy.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +34,7 @@ public class ContentController {
 	@RequestMapping("/show")
 	public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		Integer id = Integer.valueOf(request.getParameter("id"));
+		Long id = Long.valueOf(request.getParameter("id"));
 		Content content = contentService.get(id);
 		mv.addObject("product", content);
 		HttpSession session = request.getSession();
@@ -45,7 +47,7 @@ public class ContentController {
 	@RequestMapping("/edit")
 	public ModelAndView edit(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		Integer id = Integer.valueOf(request.getParameter("id"));
+		Long id = Long.valueOf(request.getParameter("id"));
 		Content content = contentService.get(id);
 		mv.addObject("product", content);
 		HttpSession session = request.getSession();
@@ -72,8 +74,33 @@ public class ContentController {
 	@RequestMapping("/addCart")
 	public ModelAndView addCart(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
+		Long id = Long.valueOf(request.getParameter("productId"));
+		Long price = Long.valueOf(request.getParameter("productPrice"));
 		
-		mv.setViewName("");
+		HttpSession session = request.getSession();
+		String title = (String)request.getParameter("productTitle");
+		Content cartProduct = new Content();
+		cartProduct.setId(id);
+		cartProduct.setTitle(title);
+		cartProduct.setPrice(price);
+		cartProduct.setBuyNum(1);
+		Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
+		if(cart==null) {
+			cart = new HashMap<Long, Content>();
+			session.setAttribute("cart", cart);
+		}
+		if(cart.containsKey(id)) {
+			cartProduct = cart.get(id);
+			cartProduct.setBuyNum(cartProduct.getBuyNum()+1);
+		}else {
+			cart.put(id, cartProduct);
+		}
+		
+		Content content = contentService.get(id);
+		mv.addObject("product", content);
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		mv.setViewName("show");
 		return mv;
 	}
 
