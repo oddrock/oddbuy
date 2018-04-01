@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oddrock.netease.oddbuy.entity.Content;
 import com.oddrock.netease.oddbuy.entity.Person;
 import com.oddrock.netease.oddbuy.entity.Trx;
+import com.oddrock.netease.oddbuy.impure.Account;
 import com.oddrock.netease.oddbuy.service.ContentService;
 import com.oddrock.netease.oddbuy.service.TrxService;
 
@@ -194,6 +195,18 @@ public class ContentController {
 		contentService.insert(content);
 		mv.addObject("product", content);
 		mv.setViewName("publicSubmit");
+		return mv;
+	}
+	
+	@RequestMapping("/account")
+	public ModelAndView account(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		List<Account> buyList = trxService.findAllList();
+		mv.addObject("buyList", buyList);
+		mv.setViewName("account");
 		return mv;
 	}
 }
