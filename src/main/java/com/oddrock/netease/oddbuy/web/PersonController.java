@@ -90,6 +90,8 @@ public class PersonController {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 		session.removeAttribute("userName");
+		session.removeAttribute("user");
+		session.removeAttribute("cart");
 		mv.setViewName("login");
 		return mv;
 	}
