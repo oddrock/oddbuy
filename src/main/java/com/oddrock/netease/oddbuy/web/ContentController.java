@@ -135,6 +135,22 @@ public class ContentController {
 		return mv;
 	}
 	
+	@RequestMapping("/buy")
+	public ModelAndView buy(HttpServletRequest request, HttpServletResponse response,Content content) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
+		if(cart!=null) {
+			session.removeAttribute("cart");
+		}
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		List<Content> productList = contentService.findAllList();
+		mv.addObject("productList", productList);
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping("/editSubmit")
 	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,Content content) {
 		ModelAndView mv = new ModelAndView();

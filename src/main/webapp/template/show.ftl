@@ -64,7 +64,7 @@
 	function addCart(button){
 		//var id=button.getAttribute('data-id');
 		//var price=button.getAttribute('data-price');
-		var msg = "您确定要购买吗？\n\n请确认！"; 
+		var msg = "您确定要加入购物车吗？\n\n请确认！"; 
 		if (confirm(msg)==true){ 
 			document.getElementById("showForm").submit();
 		}		
