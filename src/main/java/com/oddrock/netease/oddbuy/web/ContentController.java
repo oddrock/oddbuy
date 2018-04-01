@@ -1,5 +1,6 @@
 package com.oddrock.netease.oddbuy.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,6 +114,24 @@ public class ContentController {
 		List<Content> productList = contentService.findAllList();
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
+		return mv;
+	}
+	
+	@RequestMapping("/settleAccount")
+	public ModelAndView settleAccount(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
+		List<Content> cartProductList = new ArrayList<Content>();
+		if(cart!=null) {
+			for(Content c : cart.values()) {
+				cartProductList.add(c);
+			}
+		}
+		mv.addObject("cartProductList", cartProductList);
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		mv.setViewName("settleAccount");
 		return mv;
 	}
 	
