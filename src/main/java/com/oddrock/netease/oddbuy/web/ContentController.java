@@ -146,14 +146,16 @@ public class ContentController {
 		HttpSession session = request.getSession();
 		Person user = (Person) session.getAttribute("user");
 		Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
+		BigInteger time = BigInteger.valueOf(System.currentTimeMillis());
+		Long personId = user.getId();
 		if(cart!=null) {
 			for(Content content : cart.values()) {
 				for(int i=0;i<content.getBuyNum();i++) {
 					Trx trx = new Trx();
 					trx.setContentId(content.getId());
 					trx.setPrice(content.getPrice());
-					trx.setPersonId(user.getId());
-					trx.setTime(BigInteger.valueOf(System.currentTimeMillis()));
+					trx.setPersonId(personId);
+					trx.setTime(time);
 					trxService.insert(trx);
 				}
 				
