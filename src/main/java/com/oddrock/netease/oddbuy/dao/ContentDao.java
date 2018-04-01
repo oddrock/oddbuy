@@ -2,6 +2,7 @@ package com.oddrock.netease.oddbuy.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,8 @@ public interface ContentDao {
 	
     @Update("update content set price=#{content.price},title=#{content.title},icon=#{content.icon},abstract=#{content.summary},text=#{content.text} where id=#{content.id}")
     public void update(@Param("content") Content content);
+    
+    // 删除记录
+    @Delete("delete from content where id=#{id}")
+    public void delete(@Param("id") int id);    
 }

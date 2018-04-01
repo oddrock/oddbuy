@@ -54,6 +54,20 @@ public class ContentController {
 		mv.setViewName("edit");
 		return mv;
 	}
+	
+	@RequestMapping("/delete")
+	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		contentService.delete(id);
+		HttpSession session = request.getSession();
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		List<Content> productList = contentService.findAllList();
+		mv.addObject("productList", productList);
+		mv.setViewName("index");
+		return mv;
+	}
 
 	@RequestMapping("/index")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
@@ -64,7 +78,6 @@ public class ContentController {
 		List<Content> productList = contentService.findAllList();
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
-		mv.setViewName("index");
 		return mv;
 	}
 	
@@ -72,7 +85,6 @@ public class ContentController {
 	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,Content content) {
 		ModelAndView mv = new ModelAndView();
 		contentService.update(content);
-		logger.warn(content);
 		mv.addObject("product", content);
 		HttpSession session = request.getSession();
 		Person user = (Person) session.getAttribute("user");

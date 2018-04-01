@@ -125,7 +125,8 @@ public class Content {
 	public String toString() {
 		return "Content [id=" + id + ", price=" + price + ", title=" + title + ", icon=" + Arrays.toString(icon)
 				+ ", image=" + image + ", summary=" + summary + ", text=" + Arrays.toString(text) + ", detail=" + detail
-				+ ", buyNum=" + buyNum + ", isBuy=" + isBuy + ", isSell=" + isSell + ", buyPrice=" + buyPrice + "]";
+				+ ", buyNum=" + buyNum + ", isBuy=" + isBuy + ", isSell=" + isSell + ", buyPrice=" + buyPrice
+				+ ", saleNum=" + saleNum + "]";
 	}
 	
 }

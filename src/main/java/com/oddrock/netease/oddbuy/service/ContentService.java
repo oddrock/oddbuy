@@ -16,6 +16,10 @@ public class ContentService {
 	@Autowired
     private ContentDao dao;
 	
+	public void delete(int id) {
+		dao.delete(id);
+	}
+	
 	public Content insert(Content content) {
 		dao.insert(content);
 		return content;
