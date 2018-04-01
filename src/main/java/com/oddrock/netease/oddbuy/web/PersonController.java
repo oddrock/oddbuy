@@ -27,7 +27,22 @@ public class PersonController {
 	@RequestMapping("/welcome")
     public ModelAndView  welcome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("login");
+		HttpSession session = request.getSession();
+		String userName = (String)session.getAttribute("userName");
+        Person user = (Person)session.getAttribute("user");
+        if(userName==null) {
+        	mv.setViewName("login");
+        }else {
+        	if(user==null) {
+        		List<Person> list = personService.getUser(userName);
+        		user = list.get(0);
+                session.setAttribute("user", user);
+                logger.warn(userName+"之前已登录，不必重复登录。");
+        	}
+        	List<Content> productList = contentService.findAllList();
+    		mv.addObject("productList", productList);
+        	mv.setViewName("index");
+        }
 		return mv;
 	}
 	
@@ -54,6 +69,10 @@ public class PersonController {
                 return mv;
             }
         }else {					// 如果Session中已经有用户名，就不必再登录，直接跳转到user界面
+        	if(user==null) {
+        		List<Person> list = personService.getUser(userName);
+        		user = list.get(0);
+        	}
         	logger.warn(userName+"正在登录，但之前已登录，不必重复登录。");
         }
         
