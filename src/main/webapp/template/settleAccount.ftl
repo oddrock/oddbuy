@@ -19,19 +19,23 @@
 		</#list>
 	</#if>
  	</table>
- 	<div id="act-btn"><button class="u-btn u-btn-primary" id="back">退出</button>
+ 	<div id="act-btn"><button class="u-btn u-btn-primary" onclick="quit()" id="back">退出</button>
  	<button class="u-btn u-btn-primary" onclick="buy()" id="Account">购买</button></div>
 </div>
 </form>
 <#include "/include/footer.ftl">
 <script>
-	function buy(button){
+	function buy(){
 		var msg = "您确定要购买吗？\n\n请确认！"; 
 		if (confirm(msg)==true){ 
 			var form = document.getElementById("settleAccountForm");
 			form.action="buy";
 			form.submit();
 		}		
+	}
+	function quit(){
+		window.history.back();	
+		alert("222");
 	}
 </script>
 <script type="text/javascript" src="/js/global.js"></script>
