@@ -5,7 +5,8 @@
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
 <form class="m-form m-form-ht n-login" id="loginForm" method="post" action="login" onsubmit="return checkForm()" autocomplete="off">
-    <div class="fmitem">
+    
+	<div class="fmitem">
         <label class="fmlab">用户名：</label>
         <div class="fmipt">
             <input class="u-ipt" name="userName" autofocus/>
@@ -22,9 +23,15 @@
             <input type="submit" id="submit" value='提交' />
         </div>
     </div>
-	<p>买家用户：buyer，密码：reyub，卖家用户：seller，密码：relles</p>
+	
+	
 <input type="hidden" name="type" value="0"/>
 </form>
+
+<#if errorTip?? >
+	<div align="center"><p>${errorTip}</p></div>
+</#if>
+	
 <#include "/include/footer.ftl">
 <script>
 function checkForm(){

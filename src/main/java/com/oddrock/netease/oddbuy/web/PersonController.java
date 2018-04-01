@@ -65,6 +65,8 @@ public class PersonController {
             }else {
                 // 否则跳转到错误页面
             	logger.warn(userName+"登录失败！");
+            	mv.addObject("errorTip","用户名或密码错误！");
+            	logger.warn("222");
             	mv.setViewName("login");
                 return mv;
             }
