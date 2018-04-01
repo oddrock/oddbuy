@@ -1,5 +1,6 @@
 package com.oddrock.netease.oddbuy.web;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,13 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oddrock.netease.oddbuy.entity.Content;
 import com.oddrock.netease.oddbuy.entity.Person;
+import com.oddrock.netease.oddbuy.entity.Trx;
 import com.oddrock.netease.oddbuy.service.ContentService;
+import com.oddrock.netease.oddbuy.service.TrxService;
 
 @Controller
 public class ContentController {
 	private static Logger logger = Logger.getLogger(ContentController.class);
 	@Autowired
 	private ContentService contentService;
+	@Autowired
+	private TrxService trxService;
 
 	@RequestMapping("/public")
 	public ModelAndView publish(HttpServletRequest request, HttpServletResponse response) {
@@ -136,14 +141,26 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/buy")
-	public ModelAndView buy(HttpServletRequest request, HttpServletResponse response,Content content) {
+	public ModelAndView buy(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
+		Person user = (Person) session.getAttribute("user");
 		Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
 		if(cart!=null) {
+			for(Content content : cart.values()) {
+				for(int i=0;i<content.getBuyNum();i++) {
+					Trx trx = new Trx();
+					trx.setContentId(content.getId());
+					trx.setPrice(content.getPrice());
+					trx.setPersonId(user.getId());
+					trx.setTime(BigInteger.valueOf(System.currentTimeMillis()));
+					trxService.insert(trx);
+				}
+				
+			}
 			session.removeAttribute("cart");
 		}
-		Person user = (Person) session.getAttribute("user");
+		
 		mv.addObject("user", user);
 		List<Content> productList = contentService.findAllList();
 		mv.addObject("productList", productList);
