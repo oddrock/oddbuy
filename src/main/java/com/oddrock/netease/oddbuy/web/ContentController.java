@@ -69,7 +69,7 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/editSubmit")
-	public ModelAndView editSubmit(Content content, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,Content content) {
 		ModelAndView mv = new ModelAndView();
 		contentService.update(content);
 		logger.warn(content);

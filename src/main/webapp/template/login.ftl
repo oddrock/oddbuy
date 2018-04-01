@@ -22,7 +22,7 @@
             <input type="submit" id="submit" value='提交' />
         </div>
     </div>
-	<div>买家用户：buyer，密码：reyub，卖家用户：seller，密码：relles</div>
+	<p>买家用户：buyer，密码：reyub，卖家用户：seller，密码：relles</p>
 <input type="hidden" name="type" value="0"/>
 </form>
 <#include "/include/footer.ftl">
