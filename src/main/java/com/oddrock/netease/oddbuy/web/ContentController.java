@@ -233,12 +233,4 @@ public class ContentController {
 		mv.setViewName("account");
 		return mv;
 	}
-	
-	@RequestMapping("/upload")
-	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("account");
-		return mv;
-	}
 }
