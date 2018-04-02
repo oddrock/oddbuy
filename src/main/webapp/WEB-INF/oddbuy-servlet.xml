@@ -16,10 +16,10 @@
 
 	<!-- 上传图片用的 -->
 	<bean id="multipartResolver"
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="defaultEncoding" value="UTF-8"></property>
-        <property name="maxUploadSize" value="5400000"></property>
-    </bean>
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="5400000"></property>
+	</bean>
 
 
 	<mvc:annotation-driven />
@@ -28,8 +28,8 @@
 	<mvc:resources location="/image/" mapping="/image/**" />
 	<mvc:resources location="/upload/" mapping="/upload/**" />
 
-	<aop:aspectj-autoproxy/>
-	
+	<aop:aspectj-autoproxy />
+
 	<!-- 扫描本package下的组件 -->
 	<context:component-scan base-package="com.oddrock.netease.oddbuy" />
 
@@ -41,6 +41,8 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="true" />
 	</bean>
 
 	<!-- 定义mybatis相关 -->
