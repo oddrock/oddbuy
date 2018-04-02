@@ -1,6 +1,7 @@
 package com.oddrock.netease.oddbuy.aop;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,13 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.oddrock.netease.oddbuy.entity.Content;
 import com.oddrock.netease.oddbuy.entity.Person;
+import com.oddrock.netease.oddbuy.service.PersonService;
+
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -26,6 +30,8 @@ import javassist.bytecode.MethodInfo;
 @Aspect
 @Component
 public class LoggingAspect {
+	@Autowired
+	private PersonService personService;
 	private static String[] types = { "java.lang.Integer", "java.lang.Double",  
             "java.lang.Float", "java.lang.Long", "java.lang.Short",  
             "java.lang.Byte", "java.lang.Boolean", "java.lang.Char",  
@@ -46,6 +52,11 @@ public class LoggingAspect {
         String logContent = writeLogInfo(paramNames, jp); 
     	HttpSession session = request.getSession();
         Person user = (Person)session.getAttribute("user");
+        String userName = (String)session.getAttribute("userName");
+        if(user==null && userName!=null) {
+        	List<Person> list = personService.getUser(userName);
+    		user = list.get(0);
+        }
         logger.warn("====================开始 "+clazzName + "."+methodName+"()====================");
         logger.warn("类    名："+clazzSimpleName);
         logger.warn("方法名："+methodName);

@@ -9,7 +9,7 @@
         <h2>内容发布</h2>
     </div>
     <div class="n-public">
-        <form class="m-form m-form-ht" id="form" method="post" action="publicSubmit"  autocomplete="off">
+        <form class="m-form m-form-ht" id="form" method="post" action="publicSubmit"  autocomplete="off" enctype="multipart/form-data">
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
@@ -36,7 +36,6 @@
                 </div>
                 <div class="fmipt" id="fileUpload"  style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp"/>
-                    <button class="u-btn u-btn-primary" id="upload">上传</button>
                 </div>
             </div>
             <div class="fmitem">

@@ -185,6 +185,7 @@ public class ContentController {
 	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,
 			Content content,MultipartFile file, @Param("imageNew") String imageNew) throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
+		logger.warn(content);
 		if (!file.isEmpty()) {			
             String originalFileName = file.getOriginalFilename();
             // 新的图片名称
@@ -209,14 +210,27 @@ public class ContentController {
 	}
 
 	@RequestMapping("/publicSubmit")
-	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response,MultipartFile file) throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
 		Content content = new Content();
-		content.setImage(request.getParameter("image"));
 		content.setSummary(request.getParameter("summary"));
 		content.setPrice(Long.valueOf(request.getParameter("price")));
 		content.setDetail(request.getParameter("detail"));
 		content.setTitle(request.getParameter("title"));
+		if (!file.isEmpty()) {			
+            String originalFileName = file.getOriginalFilename();
+            // 新的图片名称
+            String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String relavantFilePath = "/upload/"+newFileName;
+            String newFilePath = request.getServletContext().getRealPath(relavantFilePath);
+            // 新的图片
+            File newFile = new File(newFilePath);
+            // 将内存中的数据写入磁盘
+            file.transferTo(newFile);
+            content.setImage("upload/"+newFileName);
+        }else if(request.getParameter("image")!=null){
+        	content.setImage(request.getParameter("image"));
+        }
 		contentService.insert(content);
 		mv.addObject("product", content);
 		mv.setViewName("publicSubmit");
