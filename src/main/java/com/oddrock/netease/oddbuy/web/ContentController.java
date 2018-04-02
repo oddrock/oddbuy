@@ -125,9 +125,6 @@ public class ContentController {
 		Person user = (Person) session.getAttribute("user");
 		mv.addObject("user", user);
 		List<Content> productList = contentService.findAllList();
-		for(Content c : productList) {
-			logger.warn(c);
-		}
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
 		return mv;
@@ -185,7 +182,7 @@ public class ContentController {
 	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,
 			Content content,MultipartFile file, @Param("imageNew") String imageNew) throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
-		logger.warn(content);
+		logger.warn("前："+content);
 		if (!file.isEmpty()) {			
             String originalFileName = file.getOriginalFilename();
             // 新的图片名称
@@ -197,9 +194,10 @@ public class ContentController {
             // 将内存中的数据写入磁盘
             file.transferTo(newFile);
             content.setImage("upload/"+newFileName);
-        }else if(imageNew!=null){
+        }else if(imageNew!=null && imageNew.trim().length()>0){
         	content.setImage(imageNew);
         }
+		logger.warn("后："+content);
 		contentService.update(content);
 		mv.addObject("product", content);
 		HttpSession session = request.getSession();
@@ -217,7 +215,8 @@ public class ContentController {
 		content.setPrice(Long.valueOf(request.getParameter("price")));
 		content.setDetail(request.getParameter("detail"));
 		content.setTitle(request.getParameter("title"));
-		if (!file.isEmpty()) {			
+		String image = (String)request.getParameter("image");
+		if (!file.isEmpty()) {		
             String originalFileName = file.getOriginalFilename();
             // 新的图片名称
             String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -228,8 +227,8 @@ public class ContentController {
             // 将内存中的数据写入磁盘
             file.transferTo(newFile);
             content.setImage("upload/"+newFileName);
-        }else if(request.getParameter("image")!=null){
-        	content.setImage(request.getParameter("image"));
+        }else if(image!=null && image.trim().length()>0){
+        	content.setImage(image);
         }
 		contentService.insert(content);
 		mv.addObject("product", content);
