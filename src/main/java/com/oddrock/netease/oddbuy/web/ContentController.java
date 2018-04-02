@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,6 +125,9 @@ public class ContentController {
 		Person user = (Person) session.getAttribute("user");
 		mv.addObject("user", user);
 		List<Content> productList = contentService.findAllList();
+		for(Content c : productList) {
+			logger.warn(c);
+		}
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
 		return mv;
@@ -178,25 +182,22 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/editSubmit")
-	public ModelAndView editSubmit(
-			HttpServletRequest request, HttpServletResponse response,
-			Content content,MultipartFile file,@RequestParam("uploadPath") String uploadPath) 
-			throws IllegalStateException, IOException {
+	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,
+			Content content,MultipartFile file, @Param("imageNew") String imageNew) throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
-		logger.warn(file.getOriginalFilename());
-		logger.warn(uploadPath);
-		if (!file.isEmpty()) {
-			//uploadPath = "C:\\_Temp\\";
-			ServletContext servletContext = request.getServletContext();
-			
+		if (!file.isEmpty()) {			
             String originalFileName = file.getOriginalFilename();
             // 新的图片名称
             String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
-            String newFilePath = servletContext.getRealPath(uploadPath+newFileName);
+            String relavantFilePath = "/upload/"+newFileName;
+            String newFilePath = request.getServletContext().getRealPath(relavantFilePath);
             // 新的图片
             File newFile = new File(newFilePath);
             // 将内存中的数据写入磁盘
             file.transferTo(newFile);
+            content.setImage("upload/"+newFileName);
+        }else if(imageNew!=null){
+        	content.setImage(imageNew);
         }
 		contentService.update(content);
 		mv.addObject("product", content);

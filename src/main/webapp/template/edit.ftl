@@ -37,13 +37,17 @@
             <div class="fmitem">
                 <label class="fmlab"></label>
                 <div class="fmipt" id="urlUpload">
-                    <input class="u-ipt ipt"  name="image" placeholder="图片地址"/>
+					<#if product.image?? >
+					<input type="hidden" name="image" value="${product.image}"/>
+					</#if>
+	
+					<input class="u-ipt ipt"  name="imageNew" placeholder="图片地址"/>
+
                 </div>
                 <div class="fmipt" id="fileUpload"  style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp"/>
-                    <button class="u-btn u-btn-primary" id="upload">上传</button>
+                    <!--<button class="u-btn u-btn-primary" id="upload">上传</button>-->
                 </div>
-				<input type="hidden" name="uploadPath" value="/upload/"/>
             </div>
             <div class="fmitem">
                 <label class="fmlab">正文：</label>
