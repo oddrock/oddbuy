@@ -1,11 +1,15 @@
 package com.oddrock.netease.oddbuy.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +18,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oddrock.netease.oddbuy.entity.Content;
@@ -172,8 +178,26 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/editSubmit")
-	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,Content content) {
+	public ModelAndView editSubmit(
+			HttpServletRequest request, HttpServletResponse response,
+			Content content,MultipartFile file,@RequestParam("uploadPath") String uploadPath) 
+			throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
+		logger.warn(file.getOriginalFilename());
+		logger.warn(uploadPath);
+		if (!file.isEmpty()) {
+			//uploadPath = "C:\\_Temp\\";
+			ServletContext servletContext = request.getServletContext();
+			
+            String originalFileName = file.getOriginalFilename();
+            // 新的图片名称
+            String newFileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String newFilePath = servletContext.getRealPath(uploadPath+newFileName);
+            // 新的图片
+            File newFile = new File(newFilePath);
+            // 将内存中的数据写入磁盘
+            file.transferTo(newFile);
+        }
 		contentService.update(content);
 		mv.addObject("product", content);
 		HttpSession session = request.getSession();
@@ -206,6 +230,14 @@ public class ContentController {
 		mv.addObject("user", user);
 		List<Account> buyList = trxService.findAllList();
 		mv.addObject("buyList", buyList);
+		mv.setViewName("account");
+		return mv;
+	}
+	
+	@RequestMapping("/upload")
+	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		
 		mv.setViewName("account");
 		return mv;
 	}
