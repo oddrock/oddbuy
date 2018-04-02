@@ -35,7 +35,7 @@
 	}
 	function quit(){
 		window.history.back();	
-		alert("222");
+		alert("后退");
 	}
 </script>
 <script type="text/javascript" src="/js/global.js"></script>
