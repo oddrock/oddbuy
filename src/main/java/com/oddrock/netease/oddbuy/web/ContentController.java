@@ -97,6 +97,7 @@ public class ContentController {
 		return mv;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/addCart")
 	public ModelAndView addCart(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
@@ -142,6 +143,7 @@ public class ContentController {
 		return mv;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/settleAccount")
 	public ModelAndView settleAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
@@ -160,6 +162,7 @@ public class ContentController {
 		return mv;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/buy")
 	public ModelAndView buy(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
@@ -228,7 +231,7 @@ public class ContentController {
 		content.setPrice(Long.valueOf(request.getParameter("price")));
 		content.setDetail(request.getParameter("detail"));
 		content.setTitle(request.getParameter("title"));
-		String image = (String) request.getParameter("image");
+		String image = (String) request.getParameter("imageNew");
 		if (!file.isEmpty()) {
 			String originalFileName = file.getOriginalFilename();
 			// 新的图片名称
