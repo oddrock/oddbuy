@@ -197,10 +197,18 @@ public class ContentController {
 	}
 
 	@RequestMapping("/editSubmit")
-	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response, Content content,
+	public ModelAndView editSubmit(HttpServletRequest request, HttpServletResponse response,@Valid  Content content, Errors errors,
 			MultipartFile file, @Param("imageNew") String imageNew) throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
-		logger.warn("前：" + content);
+		HttpSession session = request.getSession();
+		Person user = (Person) session.getAttribute("user");
+		mv.addObject("user", user);
+		if (errors.hasErrors()) {
+			mv.addObject("errors", errors);
+			mv.addObject("product", content);
+			mv.setViewName("edit");
+	        return mv;
+	    }
 		if (!file.isEmpty()) {
 			String originalFileName = file.getOriginalFilename();
 			// 新的图片名称
@@ -215,12 +223,8 @@ public class ContentController {
 		} else if (imageNew != null && imageNew.trim().length() > 0) {
 			content.setImage(imageNew);
 		}
-		logger.warn("后：" + content);
 		contentService.update(content);
 		mv.addObject("product", content);
-		HttpSession session = request.getSession();
-		Person user = (Person) session.getAttribute("user");
-		mv.addObject("user", user);
 		mv.setViewName("editSubmit");
 		return mv;
 	}
