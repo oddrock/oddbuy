@@ -38,7 +38,8 @@ public class LoggingAspect {
             "java.lang.String", "int", "double", "long", "short", "byte",  
             "boolean", "char", "float" }; 
 	private static Logger logger = Logger.getLogger(LoggingAspect.class);
-    @Before("execution(* com.oddrock.netease.oddbuy.web.*.*(..)) && args(request, ..)")
+    @SuppressWarnings("unchecked")
+	@Before("execution(* com.oddrock.netease.oddbuy.web.*.*(..)) && args(request, ..)")
     private void arithmeticDoLog(JoinPoint jp,HttpServletRequest request) throws ClassNotFoundException, NotFoundException {
         /*RequestAttributes ra = RequestContextHolder.getRequestAttributes();  
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;  
