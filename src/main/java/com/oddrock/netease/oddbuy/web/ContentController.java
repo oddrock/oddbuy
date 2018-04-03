@@ -227,16 +227,16 @@ public class ContentController {
 
 	@RequestMapping("/publicSubmit")
 	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response, 
-			@Valid @ModelAttribute("productDetail")Content content, Errors errors, MultipartFile file)
+			@Valid Content content, Errors errors, MultipartFile file)
 			throws IllegalStateException, IOException {
 		
 		ModelAndView mv = new ModelAndView();
-		/*if (errors.hasErrors()) {
+		if (errors.hasErrors()) {
 			mv.addObject("errors", errors);
 			mv.addObject("product", content);
 			mv.setViewName("public");
 	        return mv;
-	    }*/
+	    }
 		/*Content content = new Content();
 		content.setSummary(request.getParameter("summary"));
 		content.setPrice(Long.valueOf(request.getParameter("price")));

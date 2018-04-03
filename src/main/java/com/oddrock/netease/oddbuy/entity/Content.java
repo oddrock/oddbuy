@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 public class Content {
 	private Long id;
-	@NotNull(message = "价格能为空")
+	@NotNull(message = "价格不能为空")
 	private Long price;
 	@Length(min = 2, max = 80, message = "标题长度在[2,80]字符内")
 	private String title;
