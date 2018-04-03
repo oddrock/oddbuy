@@ -18,7 +18,10 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
-		<property name="maxUploadSize" value="5400000"></property>
+		<!-- 图片限制大小为1MB -->
+		<property name="maxUploadSize" value="1048576"></property>
+		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常-->
+		<property name="resolveLazily" value="true"/> 
 	</bean>
 
 

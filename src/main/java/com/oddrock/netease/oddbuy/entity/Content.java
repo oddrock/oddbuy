@@ -2,14 +2,19 @@ package com.oddrock.netease.oddbuy.entity;
 
 import java.util.Arrays;
 
+import org.hibernate.validator.constraints.Length;
+
 public class Content {
 	private Long id;
 	private Long price;
+	@Length(min = 2, max = 80, message = "标题长度在[2,80]字符内")
 	private String title;
 	private byte[] icon;
  	private String image;
+ 	@Length(min = 2, max = 140, message = "摘要长度在[2,140]字符内")
 	private String summary;
 	private byte[] text;
+	@Length(min = 2, max = 140, message = "正文长度在[2,1000]字符内")
 	private String detail;
 	private int buyNum;
 	private boolean isBuy;
