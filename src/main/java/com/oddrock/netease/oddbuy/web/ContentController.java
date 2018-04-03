@@ -12,12 +12,15 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -223,15 +226,22 @@ public class ContentController {
 	}
 
 	@RequestMapping("/publicSubmit")
-	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response, Content content, MultipartFile file)
+	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response, 
+			@Valid @ModelAttribute("productDetail")Content content, Errors errors, MultipartFile file)
 			throws IllegalStateException, IOException {
+		
 		ModelAndView mv = new ModelAndView();
+		/*if (errors.hasErrors()) {
+			mv.addObject("errors", errors);
+			mv.addObject("product", content);
+			mv.setViewName("public");
+	        return mv;
+	    }*/
 		/*Content content = new Content();
 		content.setSummary(request.getParameter("summary"));
 		content.setPrice(Long.valueOf(request.getParameter("price")));
 		content.setDetail(request.getParameter("detail"));
 		content.setTitle(request.getParameter("title"));*/
-		String image = (String) request.getParameter("imageNew");
 		if (!file.isEmpty()) {
 			String originalFileName = file.getOriginalFilename();
 			// 新的图片名称
@@ -243,9 +253,7 @@ public class ContentController {
 			// 将内存中的数据写入磁盘
 			file.transferTo(newFile);
 			content.setImage("upload/" + newFileName);
-		} else if (image != null && image.trim().length() > 0) {
-			content.setImage(image);
-		}
+		} 
 		contentService.insert(content);
 		mv.addObject("product", content);
 		mv.setViewName("publicSubmit");

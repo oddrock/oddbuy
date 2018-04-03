@@ -9,7 +9,7 @@
         <h2>内容发布</h2>
     </div>
     <div class="n-public">
-        <form class="m-form m-form-ht" id="form" method="post" action="publicSubmit"  autocomplete="off" enctype="multipart/form-data">
+        <form class="m-form m-form-ht" id="form" method="post" action="publicSubmit" autocomplete="off"  enctype="multipart/form-data">
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
@@ -32,10 +32,11 @@
             <div class="fmitem">
                 <label class="fmlab"></label>
                 <div class="fmipt" id="urlUpload">
-                    <input class="u-ipt ipt"  name="imageNew" placeholder="图片地址"/>
+                    <input class="u-ipt ipt"  name="image" placeholder="图片地址"/>
                 </div>
                 <div class="fmipt" id="fileUpload"  style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp"/>
+                    <button class="u-btn u-btn-primary" id="upload">上传</button>
                 </div>
             </div>
             <div class="fmitem">
@@ -52,7 +53,7 @@
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
                 <div class="fmipt">
-                    <input type="submit" value="提交" />
+                    <button type="submit" class="u-btn u-btn-primary u-btn-lg">发 布</button>
                 </div>
             </div>
         </form>
