@@ -13,15 +13,23 @@
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
-                    <input class="u-ipt ipt" name="title" autofocus placeholder="2-80字符"/>
-					<#if errors?? && errors.getFieldError("title")??><br/>${errors.getFieldError("title").defaultMessage }<br/></#if>
+					<#if product?? && product.title??>
+						<input class="u-ipt ipt" name="title" autofocus placeholder="2-80字符" value="${product.title}"/>
+					<#else>
+						<input class="u-ipt ipt" name="title" autofocus placeholder="2-80字符"/>
+					</#if>
+					<#if errors?? && errors.getFieldError("title")??><br/><font color="red">${errors.getFieldError("title").defaultMessage}</font><br/></#if>
                 </div>
             </div>
             <div class="fmitem">
                 <label class="fmlab">摘要：</label>
                 <div class="fmipt">
-                    <input class="u-ipt ipt" name="summary" placeholder="2-140字符"/>
-					<#if errors?? && errors.getFieldError("summary")??><br/>${errors.getFieldError("summary").defaultMessage }<br/></#if>
+					<#if product?? && product.summary??>
+						<input class="u-ipt ipt" name="summary" placeholder="2-140字符" value="${product.summary}"/>
+					<#else>
+						<input class="u-ipt ipt" name="summary" placeholder="2-140字符"/>
+					</#if>
+					<#if errors?? && errors.getFieldError("summary")??><br/><font color="red">${errors.getFieldError("summary").defaultMessage }</font><br/></#if>
                 </div>
             </div>
             <div class="fmitem">
@@ -34,8 +42,12 @@
             <div class="fmitem">
                 <label class="fmlab"></label>
                 <div class="fmipt" id="urlUpload">
-                    <input class="u-ipt ipt"  name="image" placeholder="图片地址"/>
-					<#if errors?? && errors.getFieldError("image")??><br/>${errors.getFieldError("image").defaultMessage }<br/></#if>
+					<#if product?? && product.image??>
+						<input class="u-ipt ipt"  name="image" placeholder="图片地址" value="${product.image}"/>
+					<#else>
+						<input class="u-ipt ipt"  name="image" placeholder="图片地址"/>
+					</#if>
+					<#if errors?? && errors.getFieldError("image")??><br/><font color="red">${errors.getFieldError("image").defaultMessage }</font><br/></#if>
                 </div>
                 <div class="fmipt" id="fileUpload"  style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp"/>
@@ -45,15 +57,23 @@
             <div class="fmitem">
                 <label class="fmlab">正文：</label>
                 <div class="fmipt">
-                    <textarea class="u-ipt" name="detail" rows="10" placeholder="2-1000个字符"></textarea>
-					<#if errors?? && errors.getFieldError("detail")??><br/>${errors.getFieldError("detail").defaultMessage }<br/></#if>
+					<#if product?? && product.detail??>
+						<textarea class="u-ipt" name="detail" rows="10" placeholder="2-1000个字符">${product.detail}</textarea>
+					<#else>
+						<textarea class="u-ipt" name="detail" rows="10" placeholder="2-1000个字符"></textarea>
+					</#if> 
+					<#if errors?? && errors.getFieldError("detail")??><br/><font color="red">${errors.getFieldError("detail").defaultMessage }</font><br/></#if>
                 </div>
             </div>
             <div class="fmitem">
                 <label class="fmlab">价格：</label>
                 <div class="fmipt">
-                    <input class="u-ipt price" name="price"/>元  
-					<#if errors?? && errors.getFieldError("price")??><br/>${errors.getFieldError("price").defaultMessage }<br/></#if>
+					<#if product?? && product.price??>
+						<input class="u-ipt price" name="price" value="${product.price}"/>元
+					<#else>
+						 <input class="u-ipt price" name="price"/>元 
+					</#if>
+					<#if errors?? && errors.getFieldError("price")??><br/><font color="red">${errors.getFieldError("price").defaultMessage }</font><br/></#if>
                 </div>
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
