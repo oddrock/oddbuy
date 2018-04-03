@@ -69,7 +69,7 @@
                 <label class="fmlab">价格：</label>
                 <div class="fmipt">
 					<#if product?? && product.price??>
-						<input class="u-ipt price" name="price" value="${product.price}"/>元
+						<input class="u-ipt price" name="price" value="${product.price}" />元
 					<#else>
 						 <input class="u-ipt price" name="price"/>元 
 					</#if>

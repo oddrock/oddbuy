@@ -1,6 +1,7 @@
 package com.oddrock.netease.oddbuy.entity;
 
 import java.util.Arrays;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
