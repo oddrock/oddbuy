@@ -223,14 +223,14 @@ public class ContentController {
 	}
 
 	@RequestMapping("/publicSubmit")
-	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response, MultipartFile file)
+	public ModelAndView publicSubmit(HttpServletRequest request, HttpServletResponse response, Content content, MultipartFile file)
 			throws IllegalStateException, IOException {
 		ModelAndView mv = new ModelAndView();
-		Content content = new Content();
+		/*Content content = new Content();
 		content.setSummary(request.getParameter("summary"));
 		content.setPrice(Long.valueOf(request.getParameter("price")));
 		content.setDetail(request.getParameter("detail"));
-		content.setTitle(request.getParameter("title"));
+		content.setTitle(request.getParameter("title"));*/
 		String image = (String) request.getParameter("imageNew");
 		if (!file.isEmpty()) {
 			String originalFileName = file.getOriginalFilename();
