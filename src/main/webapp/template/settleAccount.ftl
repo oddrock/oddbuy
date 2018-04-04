@@ -4,7 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form id="settleAccountForm" method="post" actoion="${myBasePath}/buy">
+<form id="settleAccountForm" method="post" action="${myBasePath}/buy">
 <div class="g-doc" id="settleAccount">
     <div class="m-tab m-tab-fw m-tab-simple f-cb" >
         <h2>已添加到购物车的内容</h2>
@@ -19,8 +19,8 @@
 		</#list>
 	</#if>
  	</table>
- 	<div id="act-btn"><button class="u-btn u-btn-primary" onclick="quit()" id="back">退出</button>
- 	<button class="u-btn u-btn-primary" onclick="buy()" id="Account">购买</button></div>
+ 	<div id="act-btn"><button class="u-btn u-btn-primary" type="button" onclick="quit()" id="back">退出</button>
+ 	<button class="u-btn u-btn-primary" type="button" onclick="buy()" id="Account">购买</button></div>
 </div>
 </form>
 <#include "/include/footer.ftl">
