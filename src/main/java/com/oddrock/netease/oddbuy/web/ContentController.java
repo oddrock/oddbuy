@@ -139,7 +139,7 @@ public class ContentController {
 		return mv;
 	}
 
-	@RequestMapping("/index")
+	@RequestMapping({"/index","/"})
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
