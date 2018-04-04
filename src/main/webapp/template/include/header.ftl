@@ -6,7 +6,7 @@
         </#if>
         </div>
         <ul class="nav">
-            <li><a href="${myBasePath}/index">首页</a></li>
+            <li><a href="${myBasePath}/">首页</a></li>
 			<#if !user??>
 			<li><a href="${myBasePath}/login">登录</a></li>
 			</#if>
