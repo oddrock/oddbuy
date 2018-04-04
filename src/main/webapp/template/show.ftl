@@ -26,8 +26,7 @@
                     <span class="u-btn u-btn-primary z-dis">已购买</span>
                     <span class="buyprice">当时购买价格：¥${product.buyPrice}</span>
                     <#else>
-                    <button class="u-btn u-btn-primary" onclick="addCart(this)" id="add" data-id="${product.id}" data-title="${product.title}" data-price="${product.price}">
-                                                  加入购物车</button>
+					<button class="u-btn u-btn-primary" type="button"  onclick="addCart()">加入购物车</button>
                     </#if>
                 </#if>
                 <#if user?? && user.userType==1>
@@ -61,13 +60,14 @@
 			elem.value=num-1;
 		}*/
 	}
-	function addCart(button){
+	function addCart(){
 		//var id=button.getAttribute('data-id');
 		//var price=button.getAttribute('data-price');
 		var msg = "您确定要加入购物车吗？\n\n请确认！"; 
 		if (confirm(msg)==true){ 
 			document.getElementById("showForm").submit();
-		}		
+		}	
+			
 	}
 </script>
 <script type="text/javascript" src="${myBasePath}/js/global.js"></script>
