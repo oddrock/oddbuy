@@ -87,7 +87,7 @@ public class ContentController {
 	}
 
 	@RequestMapping("/api/delete")
-	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView apiDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		contentService.delete(id);
