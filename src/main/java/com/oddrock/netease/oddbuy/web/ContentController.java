@@ -35,15 +35,20 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 @Controller
 public class ContentController {
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	public void handleException(MaxUploadSizeExceededException ex, HttpServletResponse response) throws IOException {
-		System.out.println("1111111111");
+	public void handleException(MaxUploadSizeExceededException ex, HttpServletResponse response)  {
+		System.out.println("进来...");
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script language='javascript'>alert('");
 		sb.append("文件大小不应大于" + ((MaxUploadSizeExceededException) ex).getMaxUploadSize() / 1024 + "KB");
 		sb.append("！');history.go(-1);</script>");
 		response.setContentType("text/html; charset=utf-8");
-		response.getWriter().println(sb.toString());
-		response.getWriter().flush();
+		try {
+			response.getWriter().println(sb.toString());
+			response.getWriter().flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("出去...");
 		return;
 	}
 
