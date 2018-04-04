@@ -24,7 +24,7 @@ public class PersonController {
 	@Autowired
 	private ContentService contentService;
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("/login")
     public ModelAndView  welcome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -46,7 +46,7 @@ public class PersonController {
 		return mv;
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/api/login")
     public ModelAndView  login(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String userName = (String)session.getAttribute("userName");
@@ -66,7 +66,6 @@ public class PersonController {
                 // 否则跳转到错误页面
             	logger.warn(userName+"登录失败！");
             	mv.addObject("errorTip","用户名或密码错误！");
-            	logger.warn("222");
             	mv.setViewName("login");
                 return mv;
             }

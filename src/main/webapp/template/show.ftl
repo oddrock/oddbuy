@@ -4,7 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form id="showForm" method="post" action="addCart">
+<form id="showForm" method="post" action="${myBasePath}/addCart">
 <div class="g-doc">
     <#if !product??>
     <div class="n-result">
@@ -31,7 +31,7 @@
                     </#if>
                 </#if>
                 <#if user?? && user.userType==1>
-                <a href="edit?id=${product.id}" class="u-btn u-btn-primary">编 辑</a>
+                <a href="${myBasePath}/edit?id=${product.id}" class="u-btn u-btn-primary">编 辑</a>
                 </#if>
             </div>
         </div>
@@ -70,7 +70,7 @@
 		}		
 	}
 </script>
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/pageShow.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/global.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/pageShow.js"></script>
 </body>
 </html>

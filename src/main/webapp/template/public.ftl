@@ -9,7 +9,7 @@
         <h2>内容发布</h2>
     </div>
     <div class="n-public">
-        <form class="m-form m-form-ht" id="form" method="post" action="publicSubmit" autocomplete="off"  enctype="multipart/form-data">
+        <form class="m-form m-form-ht" id="form" method="post" action="${myBasePath}/publicSubmit" autocomplete="off"  enctype="multipart/form-data">
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
@@ -86,7 +86,7 @@
     </div>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/global.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/public.js"></script>
 </body>
 </html>

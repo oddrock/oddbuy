@@ -4,7 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form class="m-form m-form-ht n-login" id="loginForm" method="post" action="login" onsubmit="return checkForm()" autocomplete="off">
+<form class="m-form m-form-ht n-login" id="loginForm" method="post" action="${myBasePath}/api/login" onsubmit="return checkForm()" autocomplete="off">
     
 	<div class="fmitem">
         <label class="fmlab">用户名：</label>
@@ -41,8 +41,8 @@ function checkForm(){
 	return true;
 }
 </script>
-<script type="text/javascript" src="js/md5.js"></script>
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/pageLogin.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/md5.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/global.js"></script>
+<script type="text/javascript" src="${myBasePath}/js/pageLogin.js"></script>
 </body>
 </html>

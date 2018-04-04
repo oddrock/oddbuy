@@ -89,6 +89,8 @@
 					<property name="suffix" value=".ftl" />
 					<!-- 定义contentType避免中文乱码 -->
 					<property name="contentType" value="text/html; charset=utf-8" />
+					<!-- 可以在页面获取request -->
+					<property name="requestContextAttribute" value="request" />
 				</bean>
 			</list>
 		</property>
