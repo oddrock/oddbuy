@@ -16,6 +16,6 @@ public interface TrxDao {
 	@Options(useGeneratedKeys = true, keyProperty = "trx.id")
 	public void insert(@Param("trx") Trx trx);
 	
-	@Select("SELECT a.contentId AS 'id',a.price AS 'buyPrice',a.time AS 'buyTime',COUNT(*) AS 'buyNum',b.title,b.icon FROM trx a,content b WHERE a.contentId=b.id GROUP BY a.contentId,a.price,a.time")
+	@Select("SELECT a.contentId AS 'id',a.price AS 'buyPrice',a.time AS 'buyTime',COUNT(*) AS 'buyNum',b.title,b.icon FROM trx a,content b WHERE a.contentId=b.id GROUP BY a.contentId,a.price,a.time order by a.time asc")
 	public List<Account> findAllList();
 }
