@@ -4,7 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form id="settleAccountForm" method="post" action="${myBasePath}/buy">
+<form id="settleAccountForm" method="post" action="${myBasePath}/api/buy">
 <div class="g-doc" id="settleAccount">
     <div class="m-tab m-tab-fw m-tab-simple f-cb" >
         <h2>已添加到购物车的内容</h2>

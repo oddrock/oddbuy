@@ -171,8 +171,8 @@ public class ContentController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/buy")
-	public ModelAndView buy(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/api/buy")
+	public ModelAndView apiBuy(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 		Person user = (Person) session.getAttribute("user");
