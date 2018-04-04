@@ -51,7 +51,9 @@
                 </div>
                 <div class="fmipt" id="fileUpload"  style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp"/>
-                    <button class="u-btn u-btn-primary" id="upload">上传</button>
+					<!--
+                    <button class="u-btn u-btn-primary" type="button" id="upload">上传</button>
+					-->
                 </div>
             </div>
             <div class="fmitem">

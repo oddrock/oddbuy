@@ -25,7 +25,7 @@ public class PersonController {
 	private ContentService contentService;
 	
 	@RequestMapping("/login")
-    public ModelAndView  welcome(HttpServletRequest request) {
+    public ModelAndView  login(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("userName");
@@ -47,7 +47,7 @@ public class PersonController {
 	}
 	
 	@RequestMapping("/api/login")
-    public ModelAndView  login(HttpServletRequest request) {
+    public ModelAndView  apiLogin(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String userName = (String)session.getAttribute("userName");
         Person user = (Person)session.getAttribute("user");

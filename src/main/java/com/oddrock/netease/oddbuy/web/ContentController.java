@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +36,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 public class ContentController {
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public void handleException(MaxUploadSizeExceededException ex, HttpServletResponse response) throws IOException {
+		System.out.println("1111111111");
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script language='javascript'>alert('");
 		sb.append("文件大小不应大于" + ((MaxUploadSizeExceededException) ex).getMaxUploadSize() / 1024 + "KB");
@@ -86,7 +86,7 @@ public class ContentController {
 		return mv;
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/api/delete")
 	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		Integer id = Integer.valueOf(request.getParameter("id"));

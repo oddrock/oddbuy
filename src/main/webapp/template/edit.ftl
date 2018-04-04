@@ -61,7 +61,12 @@
             <div class="fmitem">
                 <label class="fmlab">价格：</label>
                 <div class="fmipt">
-                    <input class="u-ipt price" name="price" value="${product.price}"/>元
+					<#if product?? && product.price??>
+						 <input class="u-ipt price" name="price" value="${product.price}"/>元
+					<#else>
+						  <input class="u-ipt price" name="price"/>元
+					</#if>
+                   
 					<#if errors?? && errors.getFieldError("price")??><br/><font color="red">${errors.getFieldError("price").defaultMessage}</font><br/></#if>
                 </div>
             </div>
