@@ -219,7 +219,9 @@ public class ContentController {
 			File newFile = new File(newFilePath);
 			// 将内存中的数据写入磁盘
 			file.transferTo(newFile);
-			content.setImage("upload/" + newFileName);
+			//content.setImage(newFilePath);
+			String projectRoot = request.getServletContext().getContextPath();
+			content.setImage(projectRoot+"/upload/" + newFileName);
 		} else if (imageNew != null && imageNew.trim().length() > 0) {
 			content.setImage(imageNew);
 		}
@@ -256,7 +258,8 @@ public class ContentController {
 			File newFile = new File(newFilePath);
 			// 将内存中的数据写入磁盘
 			file.transferTo(newFile);
-			content.setImage("upload/" + newFileName);
+			String projectRoot = request.getServletContext().getContextPath();
+			content.setImage(projectRoot+"/upload/" + newFileName);
 		} 
 		contentService.insert(content);
 		mv.addObject("product", content);
