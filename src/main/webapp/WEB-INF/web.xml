@@ -27,7 +27,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>oddbuy</servlet-name>
-		<url-pattern>/oddbuy/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 

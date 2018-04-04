@@ -60,7 +60,7 @@
     </#if>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="/js/global.js"></script>
-<script type="text/javascript" src="/js/pageIndex.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/pageIndex.js"></script>
 </body>
 </html>

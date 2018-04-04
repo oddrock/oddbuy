@@ -1,1 +1,1 @@
-<%response.sendRedirect("oddbuy/welcome");%>
+<%response.sendRedirect("welcome");%>
