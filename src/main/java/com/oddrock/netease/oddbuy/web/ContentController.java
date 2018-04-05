@@ -3,7 +3,6 @@ package com.oddrock.netease.oddbuy.web;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +36,15 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @Controller
 public class ContentController {
+	@SuppressWarnings("unused")
+	private static Logger logger = Logger.getLogger(ContentController.class);
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private TrxService trxService;
+	
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public void handleException(MaxUploadSizeExceededException ex, HttpServletResponse response)  {
-		System.out.println("进来...");
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script language='javascript'>alert('");
 		sb.append("文件大小不应大于" + ((MaxUploadSizeExceededException) ex).getMaxUploadSize() / 1024 + "KB");
@@ -51,16 +56,8 @@ public class ContentController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("出去...");
 		return;
 	}
-
-	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(ContentController.class);
-	@Autowired
-	private ContentService contentService;
-	@Autowired
-	private TrxService trxService;
 
 	@RequestMapping("/public")
 	public ModelAndView publish(HttpServletRequest request, HttpServletResponse response) {
@@ -120,19 +117,10 @@ public class ContentController {
 		return mv;
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/settleAccount")
 	public ModelAndView settleAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
-		Map<Long, Content> cart = (Map<Long, Content>) session.getAttribute("cart");
-		List<Content> cartProductList = new ArrayList<Content>();
-		if (cart != null) {
-			for (Content c : cart.values()) {
-				cartProductList.add(c);
-			}
-		}
-		mv.addObject("cartProductList", cartProductList);
 		Person user = (Person) session.getAttribute("user");
 		mv.addObject("user", user);
 		mv.setViewName("settleAccount");
