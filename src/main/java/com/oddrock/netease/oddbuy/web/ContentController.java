@@ -212,11 +212,6 @@ public class ContentController {
 			mv.setViewName("public");
 	        return mv;
 	    }
-		/*Content content = new Content();
-		content.setSummary(request.getParameter("summary"));
-		content.setPrice(Long.valueOf(request.getParameter("price")));
-		content.setDetail(request.getParameter("detail"));
-		content.setTitle(request.getParameter("title"));*/
 		if (!file.isEmpty()) {
 			String originalFileName = file.getOriginalFilename();
 			// 新的图片名称
