@@ -51,7 +51,7 @@
                         <#if user?? && user.userType==1 && x.sell><span class="had"><b>已售出</b></span></#if>
 						
                     </a>
-                    <#if user?? && user.userType==1 && !x.sell> <a href="${myBasePath}/api/delete?id=${x.id}" class="link"><span class="u-btn u-btn-normal u-btn-xs del" data-del="${x.id}">删除</span></a></#if>
+                    <#if user?? && user.userType==1 && !x.sell><span class="u-btn u-btn-normal u-btn-xs del" data-del="${x.id}">删除</span></#if>
                 </li>
             </#list>
         </#if>

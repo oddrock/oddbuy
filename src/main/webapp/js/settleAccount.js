@@ -61,6 +61,7 @@
 		var newProducts = products.map(function(arr){
 			return {'id':arr.id,'number':arr.num};
 		});
+		var myBasePath = document.getElementById("myBasePath").href;
 		console.log(newProducts);
 		var ele = e.target;
 			layer.reset({
@@ -77,7 +78,7 @@
 				                if(status >= 200 && status < 300 || status == 304){
 				                	var json = JSON.parse(xhr.responseText);
 				                	if(json && json.code == 200){
-				                		loading.result('购买成功',function(){location.href = './account.html';});
+				                		loading.result('购买成功',function(){location.href = myBasePath+'/account';});
 				                		util.deleteCookie(name);
 				                	}else{
 				                		alert(json.message);
@@ -87,7 +88,7 @@
 				                }
 				            }
 					};
-					 xhr.open('post','/api/buy');
+					 xhr.open('post',myBasePath+'/api/buy');
 					 xhr.setRequestHeader('Content-Type','application/json');
 					 xhr.send(data);
 				}.bind(this)
@@ -95,6 +96,6 @@
 			return;
 	};
 	$('back').onclick = function(){
-		location.href = window.history.back();
+		window.history.back();
 	}
 })(window,document);

@@ -1,5 +1,6 @@
 (function(w,d,u){
 	var plist = util.get('plist');
+	var myBasePath = document.getElementById("myBasePath").href;
 	if(!plist){
 		return;
 	}
@@ -23,7 +24,7 @@
 					layer.hide();
 					loading.show();
 					ajax({
-						url:'/api/delete',
+						url:myBasePath+'/api/delete',
 						data:{id:id},
 						success:function(json){
 							this.delItemNode(id);

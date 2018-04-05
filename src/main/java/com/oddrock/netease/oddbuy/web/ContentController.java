@@ -20,10 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oddrock.netease.oddbuy.entity.BuyItem;
 import com.oddrock.netease.oddbuy.entity.Content;
 import com.oddrock.netease.oddbuy.entity.Person;
 import com.oddrock.netease.oddbuy.entity.Trx;
@@ -52,6 +55,7 @@ public class ContentController {
 		return;
 	}
 
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(ContentController.class);
 	@Autowired
 	private ContentService contentService;
@@ -91,8 +95,8 @@ public class ContentController {
 		return mv;
 	}
 
-	@RequestMapping("/api/delete")
-	public ModelAndView apiDelete(HttpServletRequest request, HttpServletResponse response) {
+	/*@RequestMapping("/delete")
+	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		contentService.delete(id);
@@ -103,6 +107,18 @@ public class ContentController {
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
 		return mv;
+	}*/
+	
+	@RequestMapping("/api/delete")
+	@ResponseBody
+	public Map<String,Object> apiDelete(String id) {
+		Integer idInt = Integer.valueOf(id);
+		contentService.delete(idInt);
+		Map<String,Object> map=new HashMap<String,Object>();  
+		map.put("code", 200);
+        map.put("message", "删除成功！！！");  
+        map.put("result", true);
+		return map;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -171,8 +187,8 @@ public class ContentController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/api/buy")
-	public ModelAndView apiBuy(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/pay")
+	public ModelAndView pay(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 		Person user = (Person) session.getAttribute("user");
@@ -199,6 +215,32 @@ public class ContentController {
 		mv.addObject("productList", productList);
 		mv.setViewName("index");
 		return mv;
+	}
+	
+	@RequestMapping("/api/buy")
+	public @ResponseBody Map<String,Object> apiBuy(HttpServletRequest request, @RequestBody List<BuyItem> items) {
+		HttpSession session = request.getSession();
+		Person user = (Person) session.getAttribute("user");
+		BigInteger time = BigInteger.valueOf(System.currentTimeMillis());
+		Long personId = user.getId();
+		for(BuyItem item: items) {
+			Content content = contentService.get(item.getId());
+			if(content!=null) {
+				for (int i = 0; i < item.getNumber(); i++) {
+					Trx trx = new Trx();
+					trx.setContentId(item.getId());
+					trx.setPrice(content.getPrice());
+					trx.setPersonId(personId);
+					trx.setTime(time);
+					trxService.insert(trx);
+				}
+			}
+		}
+		Map<String,Object> map=new HashMap<String,Object>();  
+		map.put("code", 200);
+        map.put("message", "购买成功！！！");  
+        map.put("result", true);
+		return map;
 	}
 
 	@RequestMapping("/editSubmit")
@@ -283,4 +325,6 @@ public class ContentController {
 		mv.setViewName("account");
 		return mv;
 	}
+	
+	
 }

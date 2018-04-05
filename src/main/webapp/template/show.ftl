@@ -4,7 +4,6 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form id="showForm" method="post" action="${myBasePath}/addCart">
 <div class="g-doc">
     <#if !product??>
     <div class="n-result">
@@ -19,14 +18,14 @@
             <div class="price">
                 <span class="v-unit">¥</span><span class="v-value">${product.price}</span>
             </div>
-            <div class="num">购买数量：<span id="plusNum" onclick="subCartNum()" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum"><input type="text" id="cartNum" name="cartNum" style="width:30px;border:0px;" value="${product.buyNum}" readonly=true/></span><span onclick="addCartNum()" id="addNum" class="moreNum"><a>+</a></span></div>
+            <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum">${product.buyNum}</span><span id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">
                 <#if user?? && user.userType==0>
                     <#if product.buy>
                     <span class="u-btn u-btn-primary z-dis">已购买</span>
                     <span class="buyprice">当时购买价格：¥${product.buyPrice}</span>
                     <#else>
-					<button class="u-btn u-btn-primary" type="button"  onclick="addCart()">加入购物车</button>
+					 <button class="u-btn u-btn-primary" id="add" data-id="${product.id}" data-title="${product.title}" data-price="${product.price}">加入购物车</button>
                     </#if>
                 </#if>
                 <#if user?? && user.userType==1>
@@ -46,7 +45,7 @@
 <input type="hidden" id="productId" name="productId" value="${product.id}"/>
 <input type="hidden" id="productPrice" name="productPrice" value="${product.price}"/>
 <input type="hidden" id="productTitle" name="productTitle" value="${product.title}"/>
-</form>
+
 <#include "/include/footer.ftl">
 <script>
 	function addCartNum(){
