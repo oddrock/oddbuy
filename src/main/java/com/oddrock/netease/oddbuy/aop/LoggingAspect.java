@@ -2,8 +2,6 @@ package com.oddrock.netease.oddbuy.aop;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -12,11 +10,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.oddrock.netease.oddbuy.entity.Content;
 import com.oddrock.netease.oddbuy.entity.Person;
 import com.oddrock.netease.oddbuy.service.PersonService;
-
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -38,13 +33,26 @@ public class LoggingAspect {
             "java.lang.String", "int", "double", "long", "short", "byte",  
             "boolean", "char", "float" }; 
 	private static Logger logger = Logger.getLogger(LoggingAspect.class);
-    @SuppressWarnings("unchecked")
+
 	@Before("execution(* com.oddrock.netease.oddbuy.web.*.*(..)) && args(request, ..)")
-    private void arithmeticDoLog(JoinPoint jp,HttpServletRequest request) throws ClassNotFoundException, NotFoundException {
-        /*RequestAttributes ra = RequestContextHolder.getRequestAttributes();  
-        ServletRequestAttributes sra = (ServletRequestAttributes) ra;  
-        HttpServletRequest request = sra.getRequest();  */
-    	String classType = jp.getTarget().getClass().getName();  
+    private void do4All(JoinPoint jp,HttpServletRequest request) throws ClassNotFoundException, NotFoundException {
+		String projectRoot = request.getServletContext().getContextPath();
+		String requestURI = request.getRequestURI();
+		if(!requestURI.equals(projectRoot+"/login")) {
+			HttpSession session = request.getSession();
+	        Person user = (Person)session.getAttribute("user");
+	        String userName = (String)session.getAttribute("userName");
+	        if(user==null && userName!=null) {
+	        	List<Person> list = personService.getUser(userName);
+	    		user = list.get(0);
+	        }
+		}
+		log(jp, request);
+    }
+	
+	// 打日志
+	private void log(JoinPoint jp,HttpServletRequest request) throws ClassNotFoundException, NotFoundException {
+		String classType = jp.getTarget().getClass().getName();  
         Class<?> clazz = Class.forName(classType);  
         String clazzName = clazz.getName();  
         String clazzSimpleName = clazz.getSimpleName();  
@@ -53,18 +61,13 @@ public class LoggingAspect {
         String logContent = writeLogInfo(paramNames, jp); 
     	HttpSession session = request.getSession();
         Person user = (Person)session.getAttribute("user");
-        String userName = (String)session.getAttribute("userName");
-        if(user==null && userName!=null) {
-        	List<Person> list = personService.getUser(userName);
-    		user = list.get(0);
-        }
         logger.warn("====================开始 "+clazzName + "."+methodName+"()====================");
         logger.warn("类    名："+clazzSimpleName);
         logger.warn("方法名："+methodName);
         logger.warn("参    数："+logContent);
     	logger.warn("Session中user为:" + user);
     	logger.warn("====================结束 "+clazzName + "."+methodName+"()====================\n");
-    }
+	}
     
     private static String writeLogInfo(String[] paramNames, JoinPoint joinPoint){  
         Object[] args = joinPoint.getArgs();  

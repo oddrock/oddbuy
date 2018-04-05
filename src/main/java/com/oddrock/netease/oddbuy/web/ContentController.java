@@ -94,20 +94,6 @@ public class ContentController {
 		mv.setViewName("edit");
 		return mv;
 	}
-
-	/*@RequestMapping("/delete")
-	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		Integer id = Integer.valueOf(request.getParameter("id"));
-		contentService.delete(id);
-		HttpSession session = request.getSession();
-		Person user = (Person) session.getAttribute("user");
-		mv.addObject("user", user);
-		List<Content> productList = contentService.findAllList();
-		mv.addObject("productList", productList);
-		mv.setViewName("index");
-		return mv;
-	}*/
 	
 	@RequestMapping("/api/delete")
 	@ResponseBody
@@ -121,41 +107,8 @@ public class ContentController {
 		return map;
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/addCart")
-	public ModelAndView addCart(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		Long id = Long.valueOf(request.getParameter("productId"));
-		Long price = Long.valueOf(request.getParameter("productPrice"));
 
-		HttpSession session = request.getSession();
-		String title = (String) request.getParameter("productTitle");
-		Content cartProduct = new Content();
-		cartProduct.setId(id);
-		cartProduct.setTitle(title);
-		cartProduct.setPrice(price);
-		cartProduct.setBuyNum(1);
-		Map<Long, Content> cart = (Map<Long, Content>) session.getAttribute("cart");
-		if (cart == null) {
-			cart = new HashMap<Long, Content>();
-			session.setAttribute("cart", cart);
-		}
-		if (cart.containsKey(id)) {
-			cartProduct = cart.get(id);
-			cartProduct.setBuyNum(cartProduct.getBuyNum() + 1);
-		} else {
-			cart.put(id, cartProduct);
-		}
-
-		Content content = contentService.get(id);
-		mv.addObject("product", content);
-		Person user = (Person) session.getAttribute("user");
-		mv.addObject("user", user);
-		mv.setViewName("show");
-		return mv;
-	}
-
-	@RequestMapping({"/index","/"})
+	@RequestMapping("/")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -183,37 +136,6 @@ public class ContentController {
 		Person user = (Person) session.getAttribute("user");
 		mv.addObject("user", user);
 		mv.setViewName("settleAccount");
-		return mv;
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/pay")
-	public ModelAndView pay(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		HttpSession session = request.getSession();
-		Person user = (Person) session.getAttribute("user");
-		Map<Long, Content> cart = (Map<Long, Content>) session.getAttribute("cart");
-		BigInteger time = BigInteger.valueOf(System.currentTimeMillis());
-		Long personId = user.getId();
-		if (cart != null) {
-			for (Content content : cart.values()) {
-				for (int i = 0; i < content.getBuyNum(); i++) {
-					Trx trx = new Trx();
-					trx.setContentId(content.getId());
-					trx.setPrice(content.getPrice());
-					trx.setPersonId(personId);
-					trx.setTime(time);
-					trxService.insert(trx);
-				}
-
-			}
-			session.removeAttribute("cart");
-		}
-
-		mv.addObject("user", user);
-		List<Content> productList = contentService.findAllList();
-		mv.addObject("productList", productList);
-		mv.setViewName("index");
 		return mv;
 	}
 	
