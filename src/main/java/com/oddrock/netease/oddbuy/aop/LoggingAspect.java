@@ -63,22 +63,6 @@ public class LoggingAspect {
         logger.warn("方法名："+methodName);
         logger.warn("参    数："+logContent);
     	logger.warn("Session中user为:" + user);
-    	Map<Long, Content> cart = (Map<Long, Content>)session.getAttribute("cart");
-    	if(cart!=null) {
-    		StringBuffer sb = new StringBuffer();
-    		boolean first = true;
-    		for(Content content : cart.values()) {
-    			if(first) {
-    				first = false;
-    			}else {
-    				sb = sb.append("，");
-    			}
-    			sb = sb.append(content.getBuyNum()+"件"+content.getTitle());
-    		}
-    		logger.warn("购物车内有："+sb.toString());
-    	}else {
-    		logger.warn("购物车为空");
-    	}
     	logger.warn("====================结束 "+clazzName + "."+methodName+"()====================\n");
     }
     
