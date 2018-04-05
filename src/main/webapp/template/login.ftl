@@ -4,8 +4,7 @@
 <body>
 <#include "/include/support.ftl">
 <#include "/include/header.ftl">
-<form class="m-form m-form-ht n-login" id="loginForm" method="post" action="${myBasePath}/api/login" onsubmit="return checkForm()" autocomplete="off">
-    
+<form class="m-form m-form-ht n-login" id="loginForm" onsubmit="return false;" autocomplete="off"> 
 	<div class="fmitem">
         <label class="fmlab">用户名：</label>
         <div class="fmipt">
@@ -20,27 +19,14 @@
     </div>
     <div class="fmitem fmitem-nolab fmitem-btn">
         <div class="fmipt">
-            <input type="submit" id="submit" value='提交' />
+            <button type="submit" class="u-btn u-btn-primary u-btn-lg u-btn-block">登 录</button>
         </div>
     </div>
 	
 	
 <input type="hidden" name="type" value="0"/>
 </form>
-
-<#if errorTip?? >
-	<div align="center"><p>${errorTip}</p></div>
-</#if>
-	
 <#include "/include/footer.ftl">
-<script>
-function checkForm(){
-	var pwd= document.getElementById('password');
-	pwd.value=md5(pwd.value);
-	document.getElementById('submit').disabled=true;
-	return true;
-}
-</script>
 <script type="text/javascript" src="${myBasePath}/js/md5.js"></script>
 <script type="text/javascript" src="${myBasePath}/js/global.js"></script>
 <script type="text/javascript" src="${myBasePath}/js/pageLogin.js"></script>
